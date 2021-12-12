@@ -8,7 +8,13 @@
 </head>
 <body>
     <input be-verbose='{
-        "log": true
+        "log": true,
+        "on": {
+            "input":{
+                "dispatch": "jello",
+                "bubbles": true
+            }
+        }
     }'>
 
     <script type=importmap>
