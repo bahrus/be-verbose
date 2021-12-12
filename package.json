@@ -1,6 +1,6 @@
 {
   "name": "be-verbose",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "be-verbose.js",
   "module": "be-verbose.js",
@@ -19,7 +19,7 @@
   "files": [
     "*.*"
   ],
-  "exports":{
+  "exports": {
     ".": "./be-verbose.js",
     "./be-verbose.js": "./be-verbose.js"
   },
