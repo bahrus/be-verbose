@@ -1,6 +1,6 @@
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {register} from 'be-hive/register.js';
-import {BeVerboseVirtualProps, BeVerboseActions, BeVerboseProps} from './types';
+import {BeVerboseVirtualProps, BeVerboseActions, BeVerboseProps, Action} from './types';
 
 export class BeVerboseController implements BeVerboseActions{
 
@@ -16,6 +16,43 @@ export class BeVerboseController implements BeVerboseActions{
         t.dispatchEvent = e => {
             console.log(e);
             return de(e);
+        }
+    }
+
+    onOn({on}: this){
+        for(const key in on){
+            this.#target.addEventListener(key, this.handler);
+        }
+        const initAction = on[''];
+        if(initAction !== undefined){
+            this.broadCast(initAction);
+        }
+    }
+
+    broadCast({detail, dispatch, bubbles, composed, cancelable}: Action, e?: Event){
+        const eventDetail = {
+            trigger: e,
+            ...detail
+        };
+        this.#target.dispatchEvent(new CustomEvent(dispatch, {
+            bubbles,
+            composed,
+            cancelable,
+            detail: eventDetail
+        }));
+    }
+
+    finale({on}:Element & BeVerboseVirtualProps, target: Element, decor: BeDecoratedProps){
+        if(on === undefined) return;
+        for(const key in on){
+            this.#target.removeEventListener(key, this.handler);
+        }
+    }
+
+    handler = (e: Event) => {
+        const action = this.on[e.type];
+        if(action !== undefined){
+            this.broadCast(action, e);
         }
     }
 
@@ -41,6 +78,9 @@ define<BeVerboseProps & BeDecoratedProps<BeVerboseProps, BeVerboseActions>, BeVe
         actions:{
             onLog:{
                 ifAllOf: ['log'],
+            },
+            onOn:{
+                ifAllOf: ['on'],
             }
         }
     },

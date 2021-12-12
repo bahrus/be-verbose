@@ -6,10 +6,9 @@ export interface BeVerboseVirtualProps{
 }
 
 export interface Action{
-    dispatch: boolean,
+    dispatch: string,
     bubbles: boolean,
     cancelable: boolean,
-    type: string,
     detail: any,
     composed: boolean,
 }
@@ -22,4 +21,6 @@ export interface BeVerboseProps extends BeVerboseVirtualProps{
 export interface BeVerboseActions {
     intro(proxy: Element & BeVerboseVirtualProps, target: Element, beDecorProps: BeDecoratedProps): void;
     onLog(self: this): void;
+    onOn(self: this): void;
+    finale(proxy: Element & BeVerboseVirtualProps, target: Element, beDecorProps: BeDecoratedProps): void;
 }
