@@ -29,7 +29,7 @@
     "url": "git+https://github.com/bahrus/be-verbose.git"
   },
   "dependencies": {
-    "be-decorated": "0.0.44",
+    "be-decorated": "0.0.48",
     "be-hive": "0.0.13"
   },
   "devDependencies": {
